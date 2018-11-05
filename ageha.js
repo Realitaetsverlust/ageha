@@ -20,8 +20,7 @@ $.fn.agehaInit = function(options) {
         }
     };
 
-    //@TODO: Move this to seperate file?
-    var validCommands = {
+    var validCommands =  {
         '' : {
             action: function() {
             }
@@ -62,7 +61,7 @@ $.fn.agehaInit = function(options) {
                 let helpstring = 'Available Commands:<br>';
 
                 $.each(validCommands, function(i, v) {
-                   helpstring += i + '<br>';
+                    helpstring += i + '<br>';
                 });
 
                 return helpstring;
