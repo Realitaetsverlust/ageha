@@ -79,7 +79,7 @@ $.fn.agehaInit = function(options) {
     });
 
     //Enterevent
-    $("body").on("keypress", $('#ageha_console-input'), function(e) {
+    $("body").on("keypress", inputfield, function(e) {
         if (e.keyCode === 13) {
             parseInput();
             generateNewLine();

@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+}
+
+#ageha_console-window {
+    background-color: black;
+    color: white;
+    font-family: "Courier New", sans-serif;
+    width: 500px;
+    height: 500px;
+    margin: 0;
+    padding: 0;
+}
+.ageha_console-line {
+    margin: 0;
+    padding: 0;
+}
+#ageha_console-input {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    border: none;
+    color: white;
+    font-family: inherit;
+    font-size: inherit;
+    display: inline;
+    width: 25%;
+}
