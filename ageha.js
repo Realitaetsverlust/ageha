@@ -1,10 +1,13 @@
 "use strict";
 
 $.fn.agehaInit = function(options) {
+    var container = $('#ageha_console-window');
+    var inputfield = $('#ageha_console-input');
+
     //setting the defaultvalues
     var defaults = {
         'user': {
-            name: 'root',
+            name: 'root@',
             color: 'f44242'
         },
         'host': {
@@ -12,36 +15,57 @@ $.fn.agehaInit = function(options) {
             color: '028815'
         },
         'startDir': {
-            name: '/var/www/html',
+            name: ': /var/www/html ',
             color: 'ffffff'
         }
     };
 
+    //@TODO: Move this to seperate file?
     var validCommands = {
+        '' : {
+            action: function() {
+            }
+        },
         cat : {
-            response: function() {
-                return 'test'
+            action: function(filename) {
+                return 'Output from ' + filename + ': Nothing lul just a test';
             }
         },
         hostname: {
-            response: function() {
+            action: function() {
                 return settings.host.name
             }
         },
         pwd: {
-            response: function() {
+            action: function() {
                 return settings.startDir.name
             }
         },
         whoami: {
-            response: function() {
+            action: function() {
                 return settings.user.name
             }
         },
         clear: {
-            response: function() {
-                $('#console-window').html('');
-                return '';
+            action: function() {
+                container.html('');
+            }
+        },
+        ssh: {
+            action: function() {
+                settings.user.name = 'admin@';
+                settings.host.name = 'localhost';
+            },
+        },
+        help: {
+            action: function() {
+                let helpstring = 'Available Commands:<br>';
+
+                $.each(validCommands, function(i, v) {
+                   helpstring += i + '<br>';
+                });
+
+                return helpstring;
             }
         }
     };
@@ -49,64 +73,79 @@ $.fn.agehaInit = function(options) {
     //merge the defaults with the options given by the user
     var settings = $.extend({}, defaults, options || {});
 
-
     //Always focus the user input field
-    $("#console-window").click(function() {
-        $("#console-input").focus();
+    container.click(function() {
+        inputfield.focus();
     });
 
-    $("body").on("keypress", "#console-input", function(e) {
+    //Enterevent
+    $("body").on("keypress", $('#ageha_console-input'), function(e) {
         if (e.keyCode === 13) {
             parseInput();
             generateNewLine();
-            $("#console-input").focus();
+            inputfield.focus();
         }
     });
 
+    //Generates the prompt
     function generatePrompt() {
-        return '<p class="console-line">' +
-            '<span style="color: #' + settings.user.color + '">' + settings.user.name + '</span>' +
-            '@' +
-            '<span style="color: #' + settings.host.color + '">' + settings.host.name + '</span>' +
-            ': ' +
-            '<span style="color: #' + settings.startDir.color + '">' + settings.startDir.name + '</span>' +
-            ' ' +
-            '<input type=text id="console-input"></p>';
+        let prompt;
+        prompt = '<p class="ageha_console-line">';
+
+        $.each(settings, function(i, v) {
+            prompt += '<span style="color: #' + v.color + '">' + v.name + '</span>';
+        });
+
+        return prompt += '<input type=text id="ageha_console-input"></p>';
     }
 
+    //creates a new line
     function generateNewLine() {
         transformInput();
-        $("#console-window").append(generatePrompt());
+        container.append(generatePrompt());
+        //reinit the inputfield because the actual field changes
+        inputfield = $("#ageha_console-input");
     }
 
     function generateOutput(output) {
-        $("#console-window").append("<p class=\"console-line\">" + output + "</p>");
+        if(typeof output === 'undefined') {
+            output = '';
+        }
+        container.append('<p class="ageha_console-line">' + output + "</p>");
     }
 
+    //transforms the inputfield into another class so the ID of the inputfield stays unique
     function transformInput() {
-        let inputValue = $("#console-input").val();
-        $("#console-input").replaceWith("<span class='console-input-used'>" + inputValue + "</span>");
+        let inputValue = inputfield.val();
+        inputfield.replaceWith("<span class='ageha_console-input-used'>" + inputValue + "</span>");
     }
 
+    //fetches the input, splits it and sends it to processing
     function parseInput() {
-        let inputValue = $("#console-input").val();
-        inputValue = inputValue.split(" ");
+        let inputValues = inputfield.val();
+        inputValues = inputValues.split(" ");
 
-        checkIfValidCommand(inputValue[0]);
+        processCommand(inputValues);
     }
 
-    function checkIfValidCommand(command) {
+    //main logic
+    function processCommand(inputValues) {
+        let command = inputValues[0];
         let commandObject;
+        //Throw out the first element since it's the command and we don't need it any longer
+        inputValues.shift();
+
         if(typeof (commandObject = validCommands[command]) === 'undefined') {
             generateOutput("bash: " + command + ": command not found")
         } else {
-            generateOutput(commandObject.response())
+            generateOutput(commandObject.action(inputValues))
         }
     }
 
-    //init
+    //initfunction
     (function () {
         generateNewLine();
-        $("#console-input").focus();
+
+        inputfield.focus();
     })();
 };
