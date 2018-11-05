@@ -4,21 +4,35 @@
     <meta charset="UTF-8">
     <title>root@ageha 183.174.211.12</title>
     <style>
-        body {
+        #console-window {
             background-color: black;
             color: white;
             font-family: "Courier New", sans-serif;
             width: 100%;
-            height: 100%;
+            height: 1000px;
+        }
+        .console-line {
+            margin: 0;
+            padding: 0;
+        }
+        #console-input {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            border: none;
+            color: white;
+            font-family: inherit;
+            font-size: inherit;
+            display: inline;
+            width: 1000px;
         }
     </style>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="ageha.js"></script>
-    <script type="text/javascript">
-        $("body").agehaInit();
-    </script>
 </head>
-<body>
-    
+<body id="console-window">
 </body>
+<script type="text/javascript">
+    $("window").agehaInit();
+</script>
 </html>
