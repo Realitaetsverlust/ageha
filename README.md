@@ -5,16 +5,23 @@ Ageha
 
 Ageha ist a lightweight, but shitty written library. Why? I have no idea how JS works. You'll see that in a bit.
 
+Include Ageha like this ...
 
-Init Ageha like this:
 ```
-$("ageha_console-window").agehaInit();
+<script type="text/javascript" src="/path/to/your/jquery.js"></script>
+<script type="text/javascript" src="/path/to/your/ageha-commands.js"></script>
+<script type="text/javascript" src="/path/to/your/ageha.js"></script>
+```
+
+... and init it like this:
+```
+$().agehaInit();
 ```
 
 This way, Ageha will init with the default values you can check in the script. To overload those defaults, pass an object
 
 ```
-$("ageha_console-window").agehaInit({
+$().agehaInit({
     'user': {
         name: 'admin@',
         color: 'f44242'
@@ -26,6 +33,7 @@ $("ageha_console-window").agehaInit({
     'startDir': {
         name: ': /dev/null',
         color: 'ffffff'
+    }
 });
 ```
 

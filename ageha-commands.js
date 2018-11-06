@@ -6,7 +6,10 @@ $.fn.agehaUserCommands = function() {
         },
         cat : {
             action: function(filename) {
-                return 'Output from ' + filename + ': Nothing lul just a test';
+                if(filename[0] === '' || typeof filename[0] === 'undefined') {
+                    return 'No file given!';
+                }
+                return 'Output from ' + filename[0] + ': Nothing lul just a test';
             }
         },
         hostname: {

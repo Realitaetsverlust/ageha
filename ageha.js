@@ -43,9 +43,10 @@ $.fn.agehaInit = function(options) {
         let prompt;
         prompt = '<p class="ageha_console-line">';
 
-        $.each(settings, function(i, v) {
-            prompt += '<span style="color: #' + v.color + '">' + v.name + '</span>';
-        });
+        prompt += '<span style="color: #' + settings.user.color + '">' + settings.user.name + '</span>';
+        prompt += '<span style="color: #' + settings.host.color + '">' + settings.host.name + '</span>';
+        prompt += '<span style="color: #' + settings.startDir.color + '">' + settings.startDir.name + '</span>';
+
 
         return prompt += '<input type=text id="ageha_console-input"></p>';
     }
