@@ -53,7 +53,6 @@ Once you type in your new command, the function in `action` is executed. This ca
 
 #### ToDos:
  - Virtual filesystem
- - Definition of commands outside of the main file and outside of options
 
 #### FAQ:
 Q: Why?
