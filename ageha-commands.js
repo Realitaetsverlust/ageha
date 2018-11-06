@@ -1,4 +1,4 @@
-$.fn.agehaUserCommands = function() {
+$.fn.agehaUserCommands = function(settings, container) {
     return {
         '' : {
             action: function() {
@@ -40,11 +40,16 @@ $.fn.agehaUserCommands = function() {
         },
         help: {
             action: function() {
-                let helpstring = 'Available Commands:<br>';
+                console.log(this);
+                let helpstring = 'Available Commands:<br><br>';
 
-                $.each(validCommands, function(i, v) {
-                    helpstring += i + '<br>';
-                });
+                helpstring += 'cat<br>';
+                helpstring += 'hostname<br>';
+                helpstring += 'pwd<br>';
+                helpstring += 'whoami<br>';
+                helpstring += 'clear<br>';
+                helpstring += 'ssh<br>';
+                helpstring += 'help<br>';
 
                 return helpstring;
             }

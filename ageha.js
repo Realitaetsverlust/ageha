@@ -22,7 +22,7 @@ $.fn.agehaInit = function(options) {
 
     //merge the defaults with the options given by the user
     var settings = $.extend({}, defaults, options || {});
-    var validCommands = $().agehaUserCommands();
+    var validCommands = $().agehaUserCommands(settings, container);
 
     //Always focus the user input field
     container.click(function() {
