@@ -37,9 +37,9 @@ $().agehaInit({
 });
 ```
 
-At the moment, you can overload `user`, `host` and `startDir` which will change the appearance of the prompt.
+At the moment, you can overload `user`, `host` and `startDir` which will change the appearance of the prompt. I'm working on more in the future, like background- or font color. 
 
-Do you want to add a new command? Edit the `valid commands` object (yes, I'm working on putting that into another file outside of the main script):
+Do you want to add a new command? Edit the `agehaUserCommands` function and add whatever command you'd like:
 
 ```
     var validCommands =  {
