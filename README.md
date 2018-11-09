@@ -42,15 +42,18 @@ At the moment, you can overload `user`, `host` and `startDir` which will change 
 Do you want to add a new command? Edit the `agehaUserCommands` function and add whatever command you'd like:
 
 ```
-    var validCommands =  {
-        ...
-        myNewCommand: {
-            action: function() {
-                return 'Sup Fgot'
-            }
-        },
-        ...
-    };
+$.fn.agehaUserCommands = function(settings, container) {
+    return {
+	...
+	myNewCommand: {
+	    action: function(){
+		return "I'm a new command and will return this string on execute";
+	    }
+    	}
+	...
+       }
+   };
+}
 ```
 
 Once you type in your new command, the function in `action` is executed. This can be a simple text message, but also any other logic you'd like. Check the existing `validCommands` object for more information.
